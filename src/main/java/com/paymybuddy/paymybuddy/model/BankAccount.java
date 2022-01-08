@@ -13,7 +13,6 @@ import javax.persistence.Table;
  * @author fabien
  *
  */
-
 @Entity
 @Table(name = "bank_account")
 public class BankAccount {
