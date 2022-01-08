@@ -28,13 +28,14 @@ CREATE TABLE `bank_account` (
 /* table account */
 CREATE TABLE `account` (
 `account_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-`email` VARCHAR (100) NOT NULL,
+`person_id` INT,
 `pseudo` VARCHAR (100) NOT NULL,
 `pass` VARCHAR(100) NOT NULL,
 `balance` DECIMAL(10,2),
 `account_status` BOOL NOT NULL,
 `bank_account_id` INT,
-FOREIGN KEY (`bank_account_id`) REFERENCES `bank_account` (`bank_account_id`) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (`bank_account_id`) REFERENCES `bank_account` (`bank_account_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 /* table commission */

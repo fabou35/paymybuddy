@@ -11,9 +11,9 @@ INSERT INTO `bank_account` (`iban`, `bic`) VALUES ('FR0000000000000000000000002'
 INSERT INTO `bank_account` (`iban`, `bic`) VALUES ('FR0000000000000000000000003', 'CEPAFRPP003');
 
 /* populate table account */
-INSERT INTO `account` (`email`, `pseudo`, `pass`, `balance`, `account_status`, `bank_account_id`) VALUES ('fabien@email.com', 'fabien', '1234', 200, TRUE, 1);
-INSERT INTO `account` (`email`, `pseudo`, `pass`, `balance`, `account_status`, `bank_account_id`) VALUES ('jean@email.com', 'jean', '5678', 100, TRUE, 2);
-INSERT INTO `account` (`email`, `pseudo`, `pass`, `balance`,`account_status`,  `bank_account_id`) VALUES ('anne@email.com', 'anne', '1357', 300, TRUE, 3);
+INSERT INTO `account` (`person_id`, `pseudo`, `pass`, `balance`, `account_status`, `bank_account_id`) VALUES ('1', 'fabien', '1234', 200, TRUE, 1);
+INSERT INTO `account` (`person_id`, `pseudo`, `pass`, `balance`, `account_status`, `bank_account_id`) VALUES ('2', 'jean', '5678', 100, TRUE, 2);
+INSERT INTO `account` (`person_id`, `pseudo`, `pass`, `balance`,`account_status`,  `bank_account_id`) VALUES ('3', 'anne', '1357', 300, TRUE, 3);
 
 /* populate connection_association */
 INSERT INTO `connection_association` (`user_id`, `connection_id`) VALUES (1, 2);

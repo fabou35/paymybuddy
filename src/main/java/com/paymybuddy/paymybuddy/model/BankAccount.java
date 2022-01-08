@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,6 +28,15 @@ public class BankAccount {
 	
 	@Column(name = "bic")
 	private String bic;
+	
+	/**
+	 * bidirectional connection with the table account in the database
+	 * allows to recover all the account data for bank account
+	 */
+	@OneToOne(
+			mappedBy = "bankAccount"
+			)
+	private Account account;
 
 	public int getBankAccountId() {
 		return bankAccountId;
@@ -50,6 +60,14 @@ public class BankAccount {
 
 	public void setBic(String bic) {
 		this.bic = bic;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 	
 }
