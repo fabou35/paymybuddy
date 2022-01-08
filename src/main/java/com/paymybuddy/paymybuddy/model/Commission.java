@@ -14,7 +14,6 @@ import javax.persistence.Table;
  * @author fabien
  *
  */
-
 @Entity
 @Table(name = "commission")
 public class Commission {
