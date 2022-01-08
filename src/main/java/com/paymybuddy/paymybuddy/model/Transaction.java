@@ -17,7 +17,6 @@ import javax.persistence.Table;
  * @author fabien
  *
  */
-
 @Entity
 @Table(name = "transaction")
 public class Transaction {
