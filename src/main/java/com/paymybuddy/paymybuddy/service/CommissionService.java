@@ -29,4 +29,14 @@ public class CommissionService {
 	public void deleteCommission(Commission commission) {
 		commissionRepository.delete(commission);
 	}
+	
+	/**
+	 * calculates the amount of the commission for a commission rate
+	 * @param amount : transaction amount 
+	 * @param commissionRate : commission rate for the transaction
+	 * @return the commission amount
+	 */
+	public float calculateCommissionAmount(float amount, float commissionRate) {
+		return amount * commissionRate;
+	}
 }
