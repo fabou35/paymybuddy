@@ -1,0 +1,60 @@
+.element {
+	height: 500px;
+	width: 400px;
+	border: 2px solid RGB(207, 207, 207);
+	border-radius: 10px;
+}
+
+.logo {
+	height: 45px;
+	width: 150px;
+	margin-top: 20px;
+}
+
+.formulaire {
+	margin: 0 auto;
+	height: 45px;
+	width: 350px;
+	border: 2px solid RGB(207, 207, 207);
+	border-radius: 10px;
+}
+
+.inner-addon { 
+    position: relative; 
+}
+
+.inner-addon .far {
+  position: absolute;
+  padding-left: 20px;
+  padding-top: 15px;
+  pointer-events: none;
+  
+}
+
+.inner-addon .fas {
+  position: absolute;
+  padding-left: 20px;
+  padding-top: 15px;
+  pointer-events: none;
+  
+}
+
+.left-addon .far  { left:  0px;}
+
+.left-addon .fas  { left:  0px;}
+
+.left-addon input  { padding-left:  35px; }
+
+.checkbox {
+	margin: 20px;
+}
+
+.couleurbouton {
+	margin-top: 40px;
+	height: 45px;
+	width: 150px;
+	background-color: RGB(64, 71, 221);
+	color: white;
+	border-radius: 7px;
+	font-size: 20px
+}
