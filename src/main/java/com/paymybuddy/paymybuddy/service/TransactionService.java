@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.paymybuddy.paymybuddy.model.Account;
 import com.paymybuddy.paymybuddy.model.Person;
 import com.paymybuddy.paymybuddy.model.Transaction;
 import com.paymybuddy.paymybuddy.repository.TransactionRepository;
@@ -38,6 +39,10 @@ public class TransactionService {
 	
 	public void deleteTransaction(Transaction transaction) {
 		transactionRepository.delete(transaction);
+	}
+	
+	public Account findByPseudoJPQL(String pseudo) {
+		return transactionRepository.findByPseudoJPQL(pseudo);
 	}
 	
 	/**

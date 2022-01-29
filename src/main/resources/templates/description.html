@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Pay My Buddy-transaction</title>
+
+<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/description.css" type=text/css rel="stylesheet">
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+
+</head>
+
+<body>
+	<div class="container align-self-center">
+
+		<!-- page head -->
+		<div class="row">
+			<div class="col-2">
+				<img src="images/logo.png" class="logo">
+			</div>
+			<nav class="col">
+				<ul class="nav justify-content-end">
+					<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Transfer</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+					<li class="nav-item"><a class="nav-link" href="/login">Log
+							off</a></li>
+				</ul>
+			</nav>
+			<div class="row pagepath align-items-center mb-5">
+				<a class="col-1 label1" href="#">Home</a> <label
+					class="col-1 label2">/</label> <a class="col-1 label3" href="/transfer">Transfer</a>
+				<label
+					class="col-1 label2">/</label> <a class="col-1 label3" href="#">Description</a>
+			</div>
+			<!-- form to add description to transaction -->
+			<form action="#" th:action="@{/description}"
+				th:object="${newTransaction}" method="post" class="row justify-content-center">
+				<div class="row justify-content-center mb-4"><input type="hidden" th:field="*{connectionId}"> <input
+					type="hidden" th:field="*{amount}"> <input type="text"
+					name="description" placeholder="Description" class="description">
+				</div>
+				<button type="submit" name="Submit" class="submit">Submit</button>
+			</form>
+		</div>
+
+
+	</div>
+</body>
+</html>
