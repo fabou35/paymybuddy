@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta http-equiv="Cache-control" content="no-cache">
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <title>Pay My Buddy-transaction</title>
 
 <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="css/transaction.css" rel="stylesheet">
+<link href="css/transaction.css" type=text/css rel="stylesheet">
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 
 </head>
 
 <body>
 	<div class="container align-self-center">
-	
+
 		<!-- page head -->
 		<div class="row vh-100 d-flex align-items-center">
 			<div class="col-2">
-				<img src="logo.png" class="logo">
+				<img src="images/logo.png" class="logo">
 			</div>
 			<nav class="col">
 				<ul class="nav justify-content-end">
@@ -28,7 +27,7 @@
 					<li class="nav-item"><a class="nav-link" href="#">Transfer</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-					<li class="nav-item"><a class="nav-link" href="login.html">Log
+					<li class="nav-item"><a class="nav-link" href="/login">Log
 							off</a></li>
 				</ul>
 			</nav>
@@ -47,29 +46,27 @@
 						<strong>Add connection</strong>
 					</button>
 				</div>
-				
+
 				<!-- Pay row -->
-				<div class="row align-items-center justify-content-center payrow">
+				<form action="#" th:action="@{/transfer}" th:object="${newTransaction}" method="post" class="row align-items-center justify-content-center payrow">
 					<div class="col-3">
-						<select class="form-select connectionselection">
+						<select name="pseudo" class="form-select connectionselection">
 							<option value="">Select A Connection</option>
-							<option value="Hayley">Hayley</option>
-							<option value="Clara">Clara</option>
-							<option value="Smith">Smith</option>
+							<option th:each="connection : ${connections}"
+								th:value="${connection}" th:text="${connection}"></option>
 						</select>
 					</div>
 					<div class="col-2">
-						<input class="text-end amount" placeholder="0€" type="number"
-							min=0>
+ 						<input name="amount" class="text-end amount" placeholder="0€" type="text">
 					</div>
 					<div class="col-2">
-						<button class="paybutton">Pay</button>
+						<button type="submit" value="Submit" class="paybutton">Pay</button>
 					</div>
-				</div>
+				</form>
 				<div class="row">
 					<h5>My Transactions</h5>
 				</div>
-				
+
 				<!-- Transaction table -->
 				<div class="container transactiontable">
 					<div class="row d-flex align-items-center text-center tabtitle">
@@ -83,39 +80,28 @@
 							<p>Amount</p>
 						</div>
 					</div>
-					<div class="row d-flex align-items-center text-center greyrow">
-						<div class="col-4 py-3">
-							<p>Hayley</p>
-						</div>
-						<div class="col-4 py-3">
-							<p>Restaurant bill share</p>
-						</div>
-						<div class="col-4 py-3">
-							<p>10€</p>
-						</div>
-					</div>
-					<div class="row d-flex align-items-center text-center">
-						<div class="col-4 py-3">
-							<p>Clara</p>
-						</div>
-						<div class="col-4 py-3">
-							<p>Trip money</p>
-						</div>
-						<div class="col-4 py-3">
-							<p>25€</p>
-						</div>
-					</div>
-					<div class="row d-flex align-items-center text-center greyrow">
-						<div class="col-4 py-3">
-							<p>Smith</p>
-						</div>
-						<div class="col-4 py-3">
-							<p>Movie tickets</p>
-						</div>
-						<div class="col-4 py-3">
-							<p>8€</p>
+
+					<div th:each="transaction, iStat : ${transactions}"
+						th:class="${iStat.odd}? 'greyrow'">
+						<div class="row d-flex align-items-center text-center odd">
+							<div class="col-4 py-3">
+								<p>
+									<span th:text=${transaction.getConnection().getPseudo()}></span>
+								</p>
+							</div>
+							<div class="col-4 py-3">
+								<p>
+									<span th:text=${transaction.description}></span>
+								</p>
+							</div>
+							<div class="col-4 py-3">
+								<p>
+									<span th:text=${transaction.amount}></span>€
+								</p>
+							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 
@@ -145,13 +131,14 @@
 					class="col-1 d-flex align-items-center justify-content-center numberpagechange">
 					<a class="pagechangelink" href="#">5</a>
 				</div>
-				<div class="col-1 d-flex align-items-center justify-content-center rightpagechange">
+				<div
+					class="col-1 d-flex align-items-center justify-content-center rightpagechange">
 					<a class="pagechangelink" href="#">&#62;&#62;</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 
 </html>

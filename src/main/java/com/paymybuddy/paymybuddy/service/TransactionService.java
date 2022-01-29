@@ -1,11 +1,14 @@
 package com.paymybuddy.paymybuddy.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paymybuddy.paymybuddy.model.Account;
+import com.paymybuddy.paymybuddy.model.Person;
 import com.paymybuddy.paymybuddy.model.Transaction;
 import com.paymybuddy.paymybuddy.repository.TransactionRepository;
 
@@ -17,6 +20,9 @@ public class TransactionService {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private PersonService personService;
 	
 	public Optional<Transaction> getTransactionById(int id) {
 		return transactionRepository.findById(id);
@@ -61,6 +67,49 @@ public class TransactionService {
 			System.out.println("Please, add money to the account");
 			return null;
 		}
-		
+	}
+	
+	/**
+	 * retrieves the connections for an user
+	 * 
+	 * @param accountId : user account id
+	 * @return Person pseudo List
+	 */
+	public List<String> getPseudoConnectionForUser(int accountId) {
+		Optional<Person> optionalUser = personService.getPersonById(accountService.getAccountById(accountId).get().getPersonId().getPersonId());
+		Person user = optionalUser.get();
+		Iterable<Person> connections = user.getConnections();
+		List<String> connectionPseudos = new ArrayList<>();
+		connections.forEach(connection -> connectionPseudos.add(connection.getAccountId().getPseudo()));
+		return connectionPseudos;
+	}
+
+	/**
+	 * retrieves the first three transactions for an user
+	 * 
+	 * @param accountId : user account id
+	 * @return Transaction List
+	 */
+	public List<Transaction> getTransactionsForUser(int accountId) {
+		List<Transaction> transactions = new ArrayList<>();
+		Iterable<Transaction> allTransactions = getTransactions();
+		List<Transaction> userTransactions = new ArrayList<>();
+		for (Transaction transaction : allTransactions) {
+			if (transaction.getAccountId() == accountId) {
+				transactions.add(transaction);
+			}
+		}
+		Collections.reverse(transactions);
+		if (transactions.size() >= 3) {
+			for (int i = 0; i < 3; i++) {
+				userTransactions.add(transactions.get(i));
+			}
+		}
+		else {
+			for (int i = 0; i < transactions.size(); i++) {
+				userTransactions.add(transactions.get(i));
+			}
+		}
+		return userTransactions;
 	}
 }
