@@ -35,9 +35,6 @@ public class Account {
 	@Column(name = "pseudo")
 	private String pseudo;
 	
-	@Column(name = "pass")
-	private String pass;
-	
 	@Column(name = "balance")
 	private float balance;
 	
@@ -96,14 +93,6 @@ public class Account {
 
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
 	}
 
 	public float getBalance() {

@@ -33,6 +33,9 @@ public class Person {
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "pass")
+	private String pass;
+	
 	/**
 	 * Bidirectionality connection with Account entity
 	 * allows to recover the account data for a person
@@ -74,6 +77,14 @@ public class Person {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public Account getAccountId() {

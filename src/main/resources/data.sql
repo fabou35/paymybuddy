@@ -6,7 +6,8 @@ use paymybuddy;
 /* table person */
 CREATE TABLE `person` (
 `person_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-`email` VARCHAR(100) NOT NULL
+`email` VARCHAR(100) NOT NULL UNIQUE,
+`pass` VARCHAR(100) NOT NULL
 );
 
 /* table connection_association */
@@ -30,7 +31,6 @@ CREATE TABLE `account` (
 `account_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 `person_id` INT,
 `pseudo` VARCHAR (100) NOT NULL,
-`pass` VARCHAR(100) NOT NULL,
 `balance` DECIMAL(10,2),
 `account_status` BOOL NOT NULL,
 `bank_account_id` INT,
