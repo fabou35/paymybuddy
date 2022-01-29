@@ -1,10 +1,10 @@
 use paymybuddy;
 
 /* populates table person */
-INSERT INTO `person` (`email`) VALUES ('fabien@email.com');
-INSERT INTO `person` (`email`) VALUES ('hayley@email.com');
-INSERT INTO `person` (`email`) VALUES ('clara@email.com');
-INSERT INTO `person` (`email`) VALUES ('smith@email.com');
+INSERT INTO `person` (`email`, `pass`) VALUES ('fabien@email.com', '$2a$10$x1Iy61XUc8PDF1bZKg31qOQFXgGiMmYJpzZ/zPAQuPLN102fknw2e');
+INSERT INTO `person` (`email`, `pass`) VALUES ('hayley@email.com', '$2a$10$lrY6STePdXdf.B5Q6HPLceYEiZ3nKu/k0z7JInCO2L7Q.B44F02gO');
+INSERT INTO `person` (`email`, `pass`) VALUES ('clara@email.com', '$2a$10$FSpu1JHph.mMy7LKCOS4regyVs4wBQhCxm/lVIsTIdOQ973nih5NS');
+INSERT INTO `person` (`email`, `pass`) VALUES ('smith@email.com', '$2a$10$sEWxn64lsXKEMOlN9qWow.L0Cv05PYJeWt0xLIOjU2yFAu4ompxKu');
 
 /* populates table bank_account */
 INSERT INTO `bank_account` (`iban`, `bic`) VALUES ('FR0000000000000000000000001', 'CEPAFRPP001');
@@ -13,10 +13,10 @@ INSERT INTO `bank_account` (`iban`, `bic`) VALUES ('FR0000000000000000000000003'
 INSERT INTO `bank_account` (`iban`, `bic`) VALUES ('FR0000000000000000000000004', 'CEPAFRPP004');
 
 /* populates table account */
-INSERT INTO `account` (`person_id`, `pseudo`, `email`, `pass`, `balance`, `account_status`, `bank_account_id`) VALUES ('1', 'Fabien', 'fabien@email.com', '1234', 200, TRUE, 1);
-INSERT INTO `account` (`person_id`, `pseudo`, `email`, `pass`, `balance`, `account_status`, `bank_account_id`) VALUES ('2', 'Hayley', 'hayley@email.com', '5678', 100, TRUE, 2);
-INSERT INTO `account` (`person_id`, `pseudo`, `email`, `pass`, `balance`,`account_status`,  `bank_account_id`) VALUES ('3', 'Clara', 'clara@email.com', '1357', 300, TRUE, 3);
-INSERT INTO `account` (`person_id`, `pseudo`, `email`, `pass`, `balance`,`account_status`,  `bank_account_id`) VALUES ('4', 'Smith', 'smith@email.com', '2468', 400, TRUE, 4);
+INSERT INTO `account` (`person_id`, `pseudo`, `balance`, `account_status`, `bank_account_id`) VALUES ('1', 'Fabien',  200, TRUE, 1);
+INSERT INTO `account` (`person_id`, `pseudo`, `balance`, `account_status`, `bank_account_id`) VALUES ('2', 'Hayley',  100, TRUE, 2);
+INSERT INTO `account` (`person_id`, `pseudo`, `balance`,`account_status`,  `bank_account_id`) VALUES ('3', 'Clara',  300, TRUE, 3);
+INSERT INTO `account` (`person_id`, `pseudo`, `balance`,`account_status`,  `bank_account_id`) VALUES ('4', 'Smith',  400, TRUE, 4);
 
 /* populates connection_association */
 INSERT INTO `connection_association` (`user_id`, `connection_id`) VALUES (1, 2);

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html xmlns:th="https://www.thymeleaf.org">
 
 <head>
 <meta charset="utf-8">
@@ -18,27 +18,27 @@
 		<div class="row vh-100 d-flex align-items-center">
 			<div class="mx-auto text-center element">
 				<div>
-					<img src="logo.png" class="logo mb-5">
+					<img src="images/logo.png" class="logo mb-5">
 				</div>
 
-				<div class="inner-addon left-addon">
-				<i class="far fa-envelope"></i>
-				<input type="email" class="form-control formulaire mb-4"
-					placeholder="Email">
-				</div>
-				<div class="inner-addon left-addon">
-				<i class="fas fa-asterisk"></i>
-				<input type="password"
-					class="form-control formulaire mb-5" placeholder="Password">
-				</div>
-				<div class="checkbox">
-					<input type="checkbox" class="form-check-input" checked> <label
-						class="form-label">Remember me</label>
-				</div>
-				<div>
-					<input class="couleurbouton" type="Submit" value="Login">
-						
-				</div>
+				<form th:action="@{/login}" method="post">
+					<div class="inner-addon left-addon">
+						<i class="far fa-envelope"></i> <input type="text"
+							class="form-control formulaire mb-4" placeholder="Email" name="username">
+					</div>
+					<div class="inner-addon left-addon">
+						<i class="fas fa-asterisk"></i> <input type="password"
+							class="form-control formulaire mb-5" placeholder="Password" name="password">
+					</div>
+					<div class="checkbox">
+						<input type="checkbox" class="form-check-input" checked> <label
+							class="form-label">Remember me</label>
+					</div>
+					<div>
+						<button class="couleurbouton" type="submit" value="Login">Login</button>
+
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

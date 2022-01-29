@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.paymybuddy.paymybuddy.model.Transaction;
+import com.paymybuddy.paymybuddy.service.PersonService;
 import com.paymybuddy.paymybuddy.service.TransactionService;
 
 @Controller
@@ -20,15 +21,18 @@ public class TransactionController {
 	@Autowired
 	private TransactionService transactionService;
 	
+	@Autowired
+	private PersonService personService;
+	
 	@GetMapping("/transfer")
 	public String transfer(Model model) {
 		
 		// Connection List
-		List<String> connectionPseudos = transactionService.getPseudoConnectionForUser(1);
+		List<String> connectionPseudos = transactionService.getPseudoConnectionForUser(personService.getLogedUserId());
 		model.addAttribute("connections", connectionPseudos);
 
 		// Transaction table
-		List<Transaction> transactions = transactionService.getTransactionsForUser(1);
+		List<Transaction> transactions = transactionService.getTransactionsForUser(personService.getLogedUserId());
 		model.addAttribute("transactions", transactions);
 		return "transaction";
 	}
@@ -47,7 +51,7 @@ public class TransactionController {
 			float amount, int connectionId) {
 		
 		model.addAttribute("newTransaction", newTransaction);
-		transactionService.payToAFriend(1, connectionId, amount, newTransaction.getDescription(), 1);
+		transactionService.payToAFriend(personService.getLogedUserId(), connectionId, amount, newTransaction.getDescription(), 1);
 		return new ModelAndView("redirect:/transfer");
 	}
 }
