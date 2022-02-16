@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.paymybuddy.paymybuddy.model.Transaction;
-import com.paymybuddy.paymybuddy.service.AccountService;
 import com.paymybuddy.paymybuddy.service.PersonService;
 import com.paymybuddy.paymybuddy.service.TransactionService;
 
@@ -26,9 +25,13 @@ public class TransactionController {
 	@Autowired
 	private PersonService personService;
 	
-	@Autowired
-	private AccountService accountService;
 	
+	/**
+	 * Displays transaction.html page
+	 * 
+	 * @param model : model for data use with thymeleaf 
+	 * @return the page transaction.html
+	 */
 	@GetMapping("/transfer")
 	public String transfer(Model model) {
 		
@@ -48,6 +51,14 @@ public class TransactionController {
 		return "transaction";
 	}
 	
+	/**
+	 * saves transaction when an user carries it
+	 * 
+	 * @param pseudo : pseudo of connection that user choose
+	 * @param newTransaction : transaction to carry
+	 * @param model : model for data use with thymeleaf
+	 * @return the page description.html
+	 */
 	@PostMapping("/transfer")
 	public String saveTransaction(@RequestParam String pseudo, 
 			@ModelAttribute Transaction newTransaction, Model model) {
@@ -57,6 +68,16 @@ public class TransactionController {
 		return "description";
 	}
 	
+	
+	/**
+	 * saves the description for the transaction
+	 * 
+	 * @param newTransaction : the transaction carried out
+	 * @param model : model for data use with thymeleaf
+	 * @param amount : the amount saved
+	 * @param connectionId : the connection id saved
+	 * @return the page view transfer
+	 */
 	@PostMapping("/description")
 	public ModelAndView saveDescription(@ModelAttribute Transaction newTransaction, Model model,
 			float amount, int connectionId) {
