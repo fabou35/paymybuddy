@@ -15,58 +15,82 @@ public class TransactionServiceTest {
 
 	@Autowired
 	private TransactionService transactionService;
-	
+
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private CommissionService commissionService;
-	
+
 	@Test
 	public void payToAFriendWithGoodParameters() {
 		// GIVEN
 		Account accountUser = accountService.getAccountById(1).get();
-		
+		accountUser.setBalance(200f);
+		accountService.saveAccount(accountUser);
+
 		Account accountConnection = accountService.getAccountById(2).get();
-		
+
 		Commission commission = commissionService.getCommissionById(1).get();
-		
+
 		Float amount = 10f;
-		
-		// WHEN
-		Transaction transaction = new Transaction();
-		transaction = transactionService.payToAFriend(accountUser.getAccountId(), accountConnection.getAccountId(),
-				amount, "test", commission.getCommissionId()) ;
-		
-		float balanceUser = accountUser.getBalance() - amount - amount*commission.getRate();
-		accountUser.setBalance(balanceUser);
-		float balanceConnection = accountConnection.getBalance() + amount;
-		accountConnection.setBalance(balanceConnection);
-				
-		//THEN
-		assertThat(transaction.getTransactionId()).isNotNull();
-		assertThat(accountService.getAccountById(accountUser.getAccountId()).get().getBalance())
-			.isEqualTo(accountUser.getBalance());
-		assertThat(accountService.getAccountById(accountConnection.getAccountId()).get().getBalance())
-			.isEqualTo(accountConnection.getBalance());
-	}
-	
-	@Test
-	public void payToAFriendWithNegativeAmount() {
-		// GIVEN
-		Account accountUser = accountService.getAccountById(1).get();
-		
-		Account accountConnection = accountService.getAccountById(2).get();
-		
-		Commission commission = commissionService.getCommissionById(1).get();
-		
-		Float amount = -10f;
-		
+
 		// WHEN
 		Transaction transaction = new Transaction();
 		transaction = transactionService.payToAFriend(accountUser.getAccountId(), accountConnection.getAccountId(),
 				amount, "test", commission.getCommissionId());
-		
+
+		float balanceUser = accountUser.getBalance() - amount - amount * commission.getRate();
+		accountUser.setBalance(balanceUser);
+		float balanceConnection = accountConnection.getBalance() + amount;
+		accountConnection.setBalance(balanceConnection);
+
+		// THEN
+		assertThat(transaction.getTransactionId()).isNotNull();
+		assertThat(accountService.getAccountById(accountUser.getAccountId()).get().getBalance())
+				.isEqualTo(accountUser.getBalance());
+		assertThat(accountService.getAccountById(accountConnection.getAccountId()).get().getBalance())
+				.isEqualTo(accountConnection.getBalance());
+	}
+
+	@Test
+	public void payToAFriendWithNegativeAmount() {
+		// GIVEN
+		Account accountUser = accountService.getAccountById(1).get();
+
+		Account accountConnection = accountService.getAccountById(2).get();
+
+		Commission commission = commissionService.getCommissionById(1).get();
+
+		Float amount = -10f;
+
+		// WHEN
+		Transaction transaction = new Transaction();
+		transaction = transactionService.payToAFriend(accountUser.getAccountId(), accountConnection.getAccountId(),
+				amount, "test", commission.getCommissionId());
+
+		// THEN
+		assertThat(transaction).isNull();
+	}
+
+	@Test
+	public void payToAFriendWithAmountHigherThanBalance() {
+		// GIVEN
+		Account accountUser = accountService.getAccountById(1).get();
+		accountUser.setBalance(100);
+		accountService.saveAccount(accountUser);
+
+		Account accountConnection = accountService.getAccountById(2).get();
+
+		Commission commission = commissionService.getCommissionById(1).get();
+
+		Float amount = 110f; 
+
+		// WHEN
+		Transaction transaction = new Transaction();
+		transaction = transactionService.payToAFriend(accountUser.getAccountId(), accountConnection.getAccountId(),
+				amount, "test", commission.getCommissionId());
+
 		// THEN
 		assertThat(transaction).isNull();
 	}
