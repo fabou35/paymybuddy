@@ -1,5 +1,8 @@
 package com.paymybuddy.paymybuddy.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +103,9 @@ public class Account {
 	}
 
 	public void setBalance(float balance) {
-		this.balance = balance;
+		BigDecimal bd = new BigDecimal(balance);
+		bd = bd.setScale(2, RoundingMode.HALF_UP);
+		this.balance = bd.floatValue();
 	}
 
 	public boolean isAccountStatus() {

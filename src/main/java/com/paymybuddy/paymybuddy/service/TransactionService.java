@@ -54,22 +54,34 @@ public class TransactionService {
 	 * @param commissionId : id of the commission of the transaction
 	 * @return the Transaction if carried, null else
 	 */
-	public Transaction payToAFriend(int accountId, int connectionId, Float amount, String description,
+	public Transaction payToAFriend(int accountId, int connectionId, float amount, String description,
 			int commissionId) {
+		
+		
+		
 		Transaction transaction = new Transaction();
 		transaction.setAccountId(accountId);
 		transaction.setConnectionId(connectionId);
 		transaction.setAmount(amount);
 		transaction.setDescription(description);
 		transaction.setCommissionId(commissionId);
-		if(accountService.verifyBalance(accountId, amount)) {
-			transaction = saveTransaction(transaction);
-			accountService.calculateNewBalance(transaction);
-			return transaction;
+		
+		if(amount > 0) {
+			if(accountService.verifyBalance(accountId, amount)) {
+				transaction = saveTransaction(transaction);
+				accountService.calculateNewBalance(transaction);
+				System.out.println("Transaction carried out");
+				return transaction;
+			}
+			else {
+				System.out.println("Error: transaction not carried out");
+				System.out.println("Insufficient balance");
+				return null;
+			}
 		}
 		else {
-			System.out.println("Error: the transaction can't carried out");
-			System.out.println("Please, add money to the account");
+			System.out.println("Error: transaction not carried out");
+			System.out.println("Negative amount");
 			return null;
 		}
 	}
