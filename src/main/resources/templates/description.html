@@ -40,9 +40,9 @@
 			<!-- form to add description to transaction -->
 			<form action="#" th:action="@{/description}"
 				th:object="${newTransaction}" method="post" class="row justify-content-center">
-				<div class="row justify-content-center mb-4"><input type="hidden" th:field="*{connectionId}"> <input
+				<div class="row justify-content-center mb-4"><input type="hidden" th:field="*{connectionId}" > <input
 					type="hidden" th:field="*{amount}"> <input type="text"
-					name="description" placeholder="Description" class="description">
+					name="description" placeholder="Description" class="description" required>
 				</div>
 				<button type="submit" name="Submit" class="submit">Submit</button>
 			</form>

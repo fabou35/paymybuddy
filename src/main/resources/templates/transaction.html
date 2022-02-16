@@ -50,14 +50,15 @@
 				<!-- Pay row -->
 				<form action="#" th:action="@{/transfer}" th:object="${newTransaction}" method="post" class="row align-items-center justify-content-center payrow">
 					<div class="col-3">
-						<select name="pseudo" class="form-select connectionselection">
+						<select name="pseudo" class="form-select connectionselection" required>
 							<option value="">Select A Connection</option>
 							<option th:each="connection : ${connections}"
 								th:value="${connection}" th:text="${connection}"></option>
 						</select>
 					</div>
 					<div class="col-2">
- 						<input name="amount" class="text-end amount" placeholder="0€" type="text">
+ 						<input name="amount" class="text-end amount" placeholder="0€" type="number" step="0.01"
+ 						 min="1" th:max="${balance}" required>
 					</div>
 					<div class="col-2">
 						<button type="submit" value="Submit" class="paybutton">Pay</button>

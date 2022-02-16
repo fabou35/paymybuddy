@@ -2,6 +2,7 @@ package com.paymybuddy.paymybuddy.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.paymybuddy.paymybuddy.model.Transaction;
+import com.paymybuddy.paymybuddy.service.AccountService;
 import com.paymybuddy.paymybuddy.service.PersonService;
 import com.paymybuddy.paymybuddy.service.TransactionService;
 
@@ -24,15 +26,24 @@ public class TransactionController {
 	@Autowired
 	private PersonService personService;
 	
+	@Autowired
+	private AccountService accountService;
+	
 	@GetMapping("/transfer")
 	public String transfer(Model model) {
 		
+		int accountId = personService.getLogedUserId();
+		
 		// Connection List
-		List<String> connectionPseudos = transactionService.getPseudoConnectionForUser(personService.getLogedUserId());
+		List<String> connectionPseudos = transactionService.getPseudoConnectionForUser(accountId);
 		model.addAttribute("connections", connectionPseudos);
 
+		// user balance
+		float balance = personService.getPersonById(accountId).get().getAccountId().getBalance();
+		model.addAttribute("balance", balance);
+		
 		// Transaction table
-		List<Transaction> transactions = transactionService.getTransactionsForUser(personService.getLogedUserId());
+		List<Transaction> transactions = transactionService.getTransactionsForUser(accountId);
 		model.addAttribute("transactions", transactions);
 		return "transaction";
 	}
