@@ -13,79 +13,85 @@ import com.paymybuddy.paymybuddy.model.Person;
 import com.paymybuddy.paymybuddy.model.Transaction;
 import com.paymybuddy.paymybuddy.repository.TransactionRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class TransactionService {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
-	
+
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private PersonService personService;
-	
+
+	@Autowired
+	private CommissionService commissionService;
+
 	public Optional<Transaction> getTransactionById(int id) {
 		return transactionRepository.findById(id);
 	}
-	
+
 	public Iterable<Transaction> getTransactions() {
 		return transactionRepository.findAll();
 	}
-	
+
 	public Transaction saveTransaction(Transaction transaction) {
+		log.info("Transaction saved");
 		return transactionRepository.save(transaction);
 	}
-	
+
 	public void deleteTransaction(Transaction transaction) {
 		transactionRepository.delete(transaction);
 	}
-	
+
 	public Account findByPseudoJPQL(String pseudo) {
 		return transactionRepository.findByPseudoJPQL(pseudo);
 	}
-	
+
 	/**
 	 * carries out a transaction and saves it in database
-	 * @param accountId : account id of the user
+	 * 
+	 * @param accountId    : account id of the user
 	 * @param connectionId : account id of the connection
-	 * @param amount : amount of the transaction
-	 * @param description : small description of the transaction
+	 * @param amount       : amount of the transaction
+	 * @param description  : small description of the transaction
 	 * @param commissionId : id of the commission of the transaction
 	 * @return the Transaction if carried, null else
 	 */
 	public Transaction payToAFriend(int accountId, int connectionId, float amount, String description,
 			int commissionId) {
-		
-		
-		
+
 		Transaction transaction = new Transaction();
 		transaction.setAccountId(accountId);
 		transaction.setConnectionId(connectionId);
 		transaction.setAmount(amount);
 		transaction.setDescription(description);
 		transaction.setCommissionId(commissionId);
-		
-		if(amount > 0) {
-			if(accountService.verifyBalance(accountId, amount)) {
+
+		float amountWithCommission = commissionService.calculateCommissionAmount(amount, commissionId);
+
+		if (amount > 0) {
+			if (accountService.verifyBalance(accountId, amountWithCommission)) {
+				log.info("Transaction carried out");
 				transaction = saveTransaction(transaction);
 				accountService.calculateNewBalance(transaction);
-				System.out.println("Transaction carried out");
 				return transaction;
-			}
-			else {
-				System.out.println("Error: transaction not carried out");
-				System.out.println("Insufficient balance");
+			} else {
+				log.info("Error: transaction not carried out");
+				log.info("Insufficient balance");
 				return null;
 			}
-		}
-		else {
-			System.out.println("Error: transaction not carried out");
-			System.out.println("Negative amount");
+		} else {
+			log.info("Error: transaction not carried out");
+			log.info("Negative amount");
 			return null;
 		}
 	}
-	
+
 	/**
 	 * retrieves the connections for an user
 	 * 
@@ -93,7 +99,8 @@ public class TransactionService {
 	 * @return Person pseudo List
 	 */
 	public List<String> getPseudoConnectionForUser(int accountId) {
-		Optional<Person> optionalUser = personService.getPersonById(accountService.getAccountById(accountId).get().getPersonId().getPersonId());
+		Optional<Person> optionalUser = personService
+				.getPersonById(accountService.getAccountById(accountId).get().getPersonId().getPersonId());
 		Person user = optionalUser.get();
 		Iterable<Person> connections = user.getConnections();
 		List<String> connectionPseudos = new ArrayList<>();
@@ -121,8 +128,7 @@ public class TransactionService {
 			for (int i = 0; i < 3; i++) {
 				userTransactions.add(transactions.get(i));
 			}
-		}
-		else {
+		} else {
 			for (int i = 0; i < transactions.size(); i++) {
 				userTransactions.add(transactions.get(i));
 			}
