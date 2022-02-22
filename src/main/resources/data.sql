@@ -54,6 +54,8 @@ FOREIGN KEY (`connection_id`) REFERENCES `account` (`account_id`),
 `amount` DECIMAL(10,2) NOT NULL,
 `description` VARCHAR(255),
 `commission_id` INT,
+FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`),
+FOREIGN KEY (`connection_id`) REFERENCES `account` (`account_id`),
 FOREIGN KEY (`commission_id`) REFERENCES `commission` (`commission_id`)
 );
 
