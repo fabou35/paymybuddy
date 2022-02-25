@@ -1,0 +1,115 @@
+.logo{
+	margin-top: 2px;
+	margin-left: 2px;
+	padding-left: 0px;
+	height: 45px;
+	width: 150px;
+}
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
+.nav-link {
+	color:black;
+}
+
+.pagepath{
+	background-color: RGB(245, 245, 245);
+	height: 50px;
+	padding-left: 20px;
+}
+
+.label1{
+	width: 75px;
+	padding-right: 0px;
+}
+
+.label2{
+	padding-left: 0;
+	padding-right: 0;
+	width: 20px
+}
+
+.label3{
+	padding-left: 0px;
+}
+
+.centralcontainer {
+	height: 500px;
+	width: 900px;
+}
+
+.addconnectionbutton{
+	height: 45px;
+	width: 150px;
+	background-color: RGB(64, 71, 221);
+	color: white;
+	border-radius: 7px;
+}
+
+.payrow{
+	background-color: RGB(245, 245, 245);
+	height: 120px;
+}
+
+.connectionselection{
+	height: 45px;
+	border: solid 2px black;
+}
+
+.amount{
+	width: 100px;
+	height: 45px;
+	border: solid 2px black;
+	margin-left: 12px
+}
+
+.paybutton{
+	background-color: RGB(40, 203, 82);
+	color: white;
+	height: 45px;
+	width: 175px
+}
+
+.transactiontable{
+	border: solid 2px RGB(175, 175, 175);
+	padding-left: 12px;
+	padding-right: 12px
+}
+
+.tabtitle{
+	background-color: RGB(40, 203, 82);
+	color: white;
+}
+
+.greyrow{
+	background-color: RGB(245, 245, 245);
+}
+
+.leftpagechange{
+	border: solid 2px RGB(209, 209, 209);
+	border-radius: 7px 0px 0px 7px;
+	height: 50px;
+	width: 50px
+}
+
+.pagechangelink{
+	color: RGB(152, 181, 240);
+	font-size: 20px
+}
+
+.numberpagechange{
+	border: solid 2px RGB(209, 209, 209);
+	height: 50px;
+	width: 50px
+}
+
+.rightpagechange{
+	border: solid 2px RGB(209, 209, 209);
+	border-radius: 0px 7px 7px 0px;
+	height: 50px;
+	width: 50px
+}
+

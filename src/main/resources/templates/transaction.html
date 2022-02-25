@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Pay My Buddy-transaction</title>
+
+<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/transaction.css" type=text/css rel="stylesheet">
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+
+</head>
+
+<body>
+	<div class="container align-self-center">
+
+		<!-- page head -->
+		<div class="row vh-100 d-flex align-items-center">
+			<div class="col-2">
+				<img src="images/logo.png" class="logo">
+			</div>
+			<nav class="col">
+				<ul class="nav justify-content-end">
+					<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Transfer</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+					<li class="nav-item"><a class="nav-link" href="/login">Log
+							off</a></li>
+				</ul>
+			</nav>
+			<div class="row pagepath align-items-center">
+				<a class="col-1 label1" href="#">Home</a> <label
+					class="col-1 label2">/</label> <a class="col-1 label3" href="#">Transfer</a>
+			</div>
+
+			<!-- Central container -->
+			<div class="container centralcontainer pt-2">
+				<div class="row d-flex align-items-end justify-content-between">
+					<div class="col-5">
+						<h5>Send Money</h5>
+					</div>
+					<button class="col-5 addconnectionbutton">
+						<strong>Add connection</strong>
+					</button>
+				</div>
+
+				<!-- Pay row -->
+				<form action="#" th:action="@{/transfer}" th:object="${newTransaction}" method="post" class="row align-items-center justify-content-center payrow">
+					<div class="col-3">
+						<select name="pseudo" class="form-select connectionselection" required>
+							<option value="">Select A Connection</option>
+							<option th:each="connection : ${connections}"
+								th:value="${connection}" th:text="${connection}"></option>
+						</select>
+					</div>
+					<div class="col-2">
+ 						<input name="amount" class="text-end amount" placeholder="0€" type="number" step="0.01"
+ 						 min="1" th:max="${balance}" required>
+					</div>
+					<div class="col-2">
+						<button type="submit" value="Submit" class="paybutton">Pay</button>
+					</div>
+				</form>
+				<div class="row">
+					<h5>My Transactions</h5>
+				</div>
+
+				<!-- Transaction table -->
+				<div class="container transactiontable">
+					<div class="row d-flex align-items-center text-center tabtitle">
+						<div class="col-4 py-3">
+							<p>Connections</p>
+						</div>
+						<div class="col-4 py-3">
+							<p>Description</p>
+						</div>
+						<div class="col-4 py-3">
+							<p>Amount</p>
+						</div>
+					</div>
+
+					<div th:each="transaction, iStat : ${transactions}"
+						th:class="${iStat.odd}? 'greyrow'">
+						<div class="row d-flex align-items-center text-center odd">
+							<div class="col-4 py-3">
+								<p>
+									<span th:text=${transaction.getConnection().getPseudo()}></span>
+								</p>
+							</div>
+							<div class="col-4 py-3">
+								<p>
+									<span th:text=${transaction.description}></span>
+								</p>
+							</div>
+							<div class="col-4 py-3">
+								<p>
+									<span th:text=${transaction.amount}></span>€
+								</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- page change -->
+			<div class="row justify-content-center text-center mb-2">
+				<div
+					class="col-1 d-flex align-items-center justify-content-center leftpagechange">
+					<a class="pagechangelink" href="#">&#60;&#60;</a>
+				</div>
+				<div
+					class="col-1 d-flex align-items-center justify-content-center numberpagechange">
+					<a class="pagechangelink" href="#">1</a>
+				</div>
+				<div
+					class="col-1 d-flex align-items-center justify-content-center numberpagechange">
+					<a class="pagechangelink" href="#">2</a>
+				</div>
+				<div
+					class="col-1 d-flex align-items-center justify-content-center numberpagechange">
+					<a class="pagechangelink" href="#">3</a>
+				</div>
+				<div
+					class="col-1 d-flex align-items-center justify-content-center numberpagechange">
+					<a class="pagechangelink" href="#">4</a>
+				</div>
+				<div
+					class="col-1 d-flex align-items-center justify-content-center numberpagechange">
+					<a class="pagechangelink" href="#">5</a>
+				</div>
+				<div
+					class="col-1 d-flex align-items-center justify-content-center rightpagechange">
+					<a class="pagechangelink" href="#">&#62;&#62;</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+
+
+
+
