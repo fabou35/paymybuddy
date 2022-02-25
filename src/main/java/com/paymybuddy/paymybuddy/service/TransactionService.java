@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +64,7 @@ public class TransactionService {
 	 * @param commissionId : id of the commission of the transaction
 	 * @return the Transaction if carried, null else
 	 */
+	@Transactional
 	public Transaction payToAFriend(int accountId, int connectionId, float amount, String description,
 			int commissionId) {
 
